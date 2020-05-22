@@ -1,7 +1,7 @@
 (ns prs.layout
   (:require [hiccup.page :as html]))
 
-(defn title
+(defn- title
   "Generates a title for the title tag"
   [page-vars]
   (if-let [title (:title page-vars)]
@@ -13,9 +13,17 @@
   [req page-fn page-vars]
   (html/html5
    [:head
+    [:meta {:charset "utf-8"}]
+    [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
+    [:link {:href "/css/tailwind-base.css" :rel "stylesheet"}]
+    [:link {:href "/css/tailwind-components.css" :rel "stylesheet"}]
+    [:link {:href "/css/tailwind-utilities.css" :rel "stylesheet"}]
+    [:link {:href "/css/app.css" :rel "stylesheet"}]
     [:title (title page-vars)]]
-   [:body
-    [:div (page-fn req page-vars)]]))
+   [:body.bg-gray-dark.mb-12
+    [:div.ml-5.mr-5.mb-10.pt-5.text-right
+     [:a.text-green-lighter {:href "#"} "Username"]]
+    [:div.ml-5.mr-5.mt-5 (page-fn req page-vars)]]))
 
 (defn render
   "Renders the app-layout and inner page function"
