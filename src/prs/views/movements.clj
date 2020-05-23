@@ -1,7 +1,7 @@
 (ns prs.views.movements)
 
 (defn- percent-of
-  "Calculate the percentage of a number rounded up"
+  "Calculate the percentage of a number then round up"
   [num percent]
   (->>
    (* percent 0.01)
@@ -15,8 +15,8 @@
   [num]
   (->>
    (concat
-    (map #(* %1 5) (range 7 18))
-    (into [] (range 86 111)))
+    (map #(* %1 5) (range 7 18)) ;; 35 - 85
+    (into [] (range 86 111))) ; 86 = 110
    (map (fn [x] [x (percent-of num x)]))))
 
 (defn show
