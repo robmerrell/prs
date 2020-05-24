@@ -4,22 +4,17 @@
             [clojure.java.io :as io]))
 
 (defn- read-config
-  "Read resources/config.edn"
+  "Read and parse resources/config.edn"
   []
-  (println "starting config system")
   (aero/read-config (io/resource "config.edn")
-                    {:profile (:profile mnt/args)}))
+                    {:profile (:profile (mnt/args))}))
 
 (mnt/defstate config
   :start (read-config))
 
-(defn database
-  "Get the database config"
-  []
-  (println "getting database config"))
+(defn database-name []
+  (get-in config [:app :database :name]))
 
-(defn webserver-port
-  "Get the port that the webserver should run on"
-  []
+(defn webserver-port []
   (get-in config [:app :server :port]))
 

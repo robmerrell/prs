@@ -18,8 +18,8 @@
                  [hiccup "1.0.5"]
 
                  ;; database
-
-                 ]
+                 [com.layerware/hugsql "0.5.1"]
+                 [org.xerial/sqlite-jdbc "3.30.1"]]
   :main ^:skip-aot prs.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

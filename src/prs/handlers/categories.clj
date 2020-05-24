@@ -1,6 +1,7 @@
 (ns prs.handlers.categories
   (:require [prs.layout :refer [render]]
-            [prs.views.categories :as views]))
+            [prs.views.categories :as views]
+            [prs.db.core :as db]))
 
 (defn index
   "List all categories"

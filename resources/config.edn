@@ -1,6 +1,8 @@
 {:app
  {:database
-  {:name "blah"}
+  {:name #profile {:default "prs.sqlite"
+                   :dev "prs_dev.sqlite"
+                   :test "prs_test.sqlite"}}
 
   :server
   {:port #or [#env PRS_PORT 3000]}}}

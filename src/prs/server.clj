@@ -21,9 +21,13 @@
 (def app-dev (wrap-reload(wrap-defaults #'routes site-defaults)))
 
 (defn start-server []
-  (if (= :dev (:profile mnt/args))
-    (ring/run-jetty app-dev {:port (config/webserver-port) :join? false})
-    (ring/run-jetty app {:port (config/webserver-port)})))
+  (if (= :dev (:profile (mnt/args)))
+    (do
+      (println "dev mode")
+      (ring/run-jetty app-dev {:port (config/webserver-port) :join? false}))
+    (do
+      (println "prod mode")
+      (ring/run-jetty app {:port (config/webserver-port)}))))
 
 (defn stop-server [server]
   (.stop server))
