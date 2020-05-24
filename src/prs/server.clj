@@ -6,6 +6,7 @@
             [ring.util.response :as response]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [taoensso.timbre :as log]
             [prs.config :as config]
             [prs.handlers.categories :as categories]
             [prs.handlers.movements :as movements]))
@@ -23,10 +24,10 @@
 (defn start-server []
   (if (= :dev (:profile (mnt/args)))
     (do
-      (println "dev mode")
+      (log/info "Starting in dev mode")
       (ring/run-jetty app-dev {:port (config/webserver-port) :join? false}))
     (do
-      (println "prod mode")
+      (log/info (str "Starting with profile: " (:profile (mnt/args))))
       (ring/run-jetty app {:port (config/webserver-port)}))))
 
 (defn stop-server [server]

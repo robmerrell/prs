@@ -9,12 +9,12 @@
    :subname (config/database-name)})
 
 (defn disconnect
-  [db]
+  [conn]
   (println "disconnecting from db"))
 
-(mnt/defstate db
+(mnt/defstate conn
   :start (connect)
-  :stop (disconnect db))
+  :stop (disconnect conn))
 
 (defn migrate
   "Set up and initialize Migratus. Run migrations from this namespace"

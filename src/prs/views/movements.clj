@@ -3,11 +3,7 @@
 (defn- percent-of
   "Calculate the percentage of a number then round up"
   [num percent]
-  (->>
-   (* percent 0.01)
-   (* num)
-   Math/ceil
-   int))
+  (->> (* percent 0.01) (* num) Math/ceil int))
 
 (defn- percentages
   "Find percentages of the given number between 30-110
