@@ -18,3 +18,5 @@
 (defn webserver-port []
   (get-in config [:app :server :port]))
 
+(defn migrations []
+  (get-in config [:app :migrations]))

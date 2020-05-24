@@ -17,9 +17,14 @@
                  ;; html
                  [hiccup "1.0.5"]
 
+                 ;; logging
+                 [com.taoensso/timbre "4.10.0"]
+                 [com.fzakaria/slf4j-timbre "0.3.19"]
+
                  ;; database
                  [com.layerware/hugsql "0.5.1"]
-                 [org.xerial/sqlite-jdbc "3.30.1"]]
+                 [org.xerial/sqlite-jdbc "3.30.1"]
+                 [migratus "1.2.8"]]
   :main ^:skip-aot prs.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

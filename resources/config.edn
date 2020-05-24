@@ -4,5 +4,12 @@
                    :dev "prs_dev.sqlite"
                    :test "prs_test.sqlite"}}
 
+  :migrations
+  {:store :database
+   :migration-dir "migrations/"
+   :init-script "init.sql"
+   :init-in-transaction? false
+   :migration-table-name "migrations"}
+
   :server
   {:port #or [#env PRS_PORT 3000]}}}
