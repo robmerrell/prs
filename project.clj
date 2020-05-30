@@ -6,6 +6,8 @@
                  [lein-cljfmt "0.6.7"]
                  [mount "0.1.16"]
                  [aero "1.1.6"]
+                 [buddy/buddy-auth "2.2.0"]
+                 [buddy/buddy-hashers "1.4.0"]
 
                  ;; http
                  [compojure "1.6.1"]

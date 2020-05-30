@@ -7,3 +7,8 @@
   "Start the application"
   [& args]
   (mnt/start-with-args {:profile :dev}))
+
+(defn shutdown
+  "Stop all components"
+  []
+  (mnt/stop))

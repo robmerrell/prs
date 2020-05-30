@@ -7,12 +7,12 @@
 
 (defn- percentages
   "Find percentages of the given number between 30-110
-  30% - 80% are done in steps of 5. The rest are done in steps of 1"
+  35% - 85% are done in steps of 5. The rest are done in steps of 1"
   [num]
   (->>
    (concat
     (map #(* %1 5) (range 7 18)) ;; 35 - 85
-    (into [] (range 86 111))) ; 86 = 110
+    (into [] (range 86 111))) ; 86 - 110
    (map (fn [x] [x (percent-of num x)]))))
 
 (defn show
