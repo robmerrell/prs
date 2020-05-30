@@ -6,7 +6,7 @@ order by name
 
 -- :name batch-insert :! :n
 -- :doc Insert multiple movements
-insert into movements (id, category_id, name)
+insert into movements (id, category_id, name, pr_type)
 values :tuple*:movements
 
 -- :name remove-all :! :n
