@@ -8,6 +8,7 @@
                  [aero "1.1.6"]
                  [buddy/buddy-auth "2.2.0"]
                  [buddy/buddy-hashers "1.4.0"]
+                 [tick "0.4.25-alpha"]
 
                  ;; http
                  [compojure "1.6.1"]

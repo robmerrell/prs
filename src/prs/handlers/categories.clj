@@ -20,5 +20,5 @@
     (auth/throw-unauthorized)
     (let [categories (categories-db/all db/conn)
           category-id (get-in req [:route-params :id])
-          movements (movements-db/get-by-category-id db/conn {:category-id category-id})]
+          movements (movements-db/get-by-category-with-user db/conn {:category-id category-id :user-id (get-in req [:user :id])})]
       (render req views/show {:title "Categories" :categories categories :movements movements}))))
