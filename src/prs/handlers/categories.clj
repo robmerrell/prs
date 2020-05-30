@@ -3,16 +3,22 @@
             [prs.views.categories :as views]
             [prs.db.core :as db]
             [prs.db.categories :as categories-db]
+            [prs.db.movements :as movements-db]
+            [ring.util.response :as response]
             [buddy.auth :as auth]))
 
 (defn index
-  "List all categories"
+  "Redirect to the first category"
+  [_req]
+  (let [first-category (categories-db/get-first db/conn)]
+    (response/redirect (str "/categories/" (:id first-category)))))
+
+(defn show
+  "Show all movements for a category"
   [req]
-    (clojure.pprint/pprint req)
   (if-not (auth/authenticated? req)
     (auth/throw-unauthorized)
-    (let [cats (categories-db/all db/conn)
-          movements [{:id 1 :name "Clean and Jerk" :latest "205"}
-                     {:id 2 :name "Clean" :latest "215"}
-                     {:id 3 :name "Power Clean" :latest "200"}]]
-      (render req views/index {:title "Categories" :categories cats :movements movements}))))
+    (let [categories (categories-db/all db/conn)
+          category-id (get-in req [:route-params :id])
+          movements (movements-db/get-by-category-id db/conn {:category-id category-id})]
+      (render req views/show {:title "Categories" :categories categories :movements movements}))))

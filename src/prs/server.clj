@@ -17,11 +17,11 @@
             [prs.handlers.login :as login]))
 
 (defroutes routes
-  (GET "/" [] (response/redirect "/categories"))
+  (GET "/" [] categories/index)
   (GET "/login" [] login/index)
   (POST "/login" [] login/process-login)
   (GET "/categories" [] categories/index)
-  (GET "/categories/:id" [] "category by id")
+  (GET "/categories/:id" [] categories/show)
   (GET "/movements/:id" [] movements/show)
   (route/resources "/"))
 

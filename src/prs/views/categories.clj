@@ -1,6 +1,6 @@
 (ns prs.views.categories)
 
-(defn index
+(defn show
   [_req page-vars]
   [:div
    ;; categories list
@@ -10,7 +10,7 @@
 
    [:div.mt-10.mb-10.text-lg
     [:span.text-white.pr-5 "Movements"]
-    [:span.text-green "3"]]
+    [:span.text-green (count (:movements page-vars))]]
 
    ;; movements list
    (for [movement (:movements page-vars)]
