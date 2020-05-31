@@ -1,14 +1,15 @@
 (ns prs.views.movements
-  (:require [tick.alpha.api :as tick]))
+  (:require [tick.alpha.api :as tick]
+            [prs.views.helpers :as helpers]))
 
 (defn- date-from-timestamp
   "Returns a formatted date in the Mountain timezone from a Unix timestamp"
   [stamp]
   (as-> stamp n
-      (tick/new-duration n :seconds)
-      (tick/inst n)
-      (tick/in n "America/Denver")
-      (tick/format (tick/formatter "MMM dd, yyyy") n)))
+    (tick/new-duration n :seconds)
+    (tick/inst n)
+    (tick/in n "America/Denver")
+    (tick/format (tick/formatter "MMM dd, yyyy") n)))
 
 (defn- percent-of
   "Calculate the percentage of a number then round up"
@@ -27,26 +28,27 @@
 
 (defn show
   [_req page-vars]
-  [:div
-   [:div.flex.justify-between
-    [:div.text-green.text-3xl (get-in page-vars [:movement :name])]
-    [:div.text-white-dark.text-3xl (get-in page-vars [:latest :value])]]
+  (let [movement (:movement page-vars)
+        latest (:latest page-vars)]
+    [:div
+     [:div.flex.justify-between
+      [:div.text-green.text-3xl (:name movement)]
+      [:div.text-white-dark.text-3xl (helpers/movement-record-value (:pr_type movement) (:value latest))]]
 
    ;; percentages
-   (when (= "weight" (get-in page-vars [:movement :pr_type]))
-     (when-let [pr-value (get-in page-vars [:latest :value])]
+     (when (= "weight" (:pr_type movement))
        [:div.mb-10
-        (for [[percent value] (percentages pr-value)]
+        (for [[percent value] (percentages (:value latest))]
           [:div.mb-1.bg-gray.flex.items-stretch.text-white.text-lg.py-2
            [:div.flex-1.text-right.pr-4 (str percent "%")]
-           [:div.flex-1.text-left.pl-4.text-white-dark value]])]))
+           [:div.flex-1.text-left.pl-4.text-white-dark value]])])
 
    ;; history
-   [:div.text-green.text-2xl "History"]
-   [:div
-    (for [pr (:records page-vars)]
-      [:div.flex.items-stretch.bg-gray.text-white.text-lg.py-2.mb-1
-       [:div.flex-1.text-center (date-from-timestamp (:created_at pr))]
-       [:div.flex-1.text-center (:value pr)]
-       [:div.flex-1.text-center
-        [:a.text-green-lighter {:href "#"} "Edit"]]])]])
+     [:div.text-green.text-2xl "History"]
+     [:div
+      (for [pr (:records page-vars)]
+        [:div.flex.items-stretch.bg-gray.text-white.text-lg.py-2.mb-1
+         [:div.flex-1.text-center (date-from-timestamp (:created_at pr))]
+         [:div.flex-1.text-center (helpers/movement-record-value (:pr_type movement) (:value pr))]
+         [:div.flex-1.text-center
+          [:a.text-green-lighter {:href "#"} "Edit"]]])]]))
