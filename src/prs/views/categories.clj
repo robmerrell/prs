@@ -1,4 +1,5 @@
-(ns prs.views.categories)
+(ns prs.views.categories
+  (:require [prs.views.helpers :as helpers]))
 
 (defn show
   [_req page-vars]
@@ -18,5 +19,5 @@
       [:a {:href (str "/movements/" (:id movement))}
        [:div.bg-gray-lighter.flex.justify-between.text-3xl.pl-10.pr-10
         [:div.text-white.pt-5.pb-5 (:name movement)]
-        [:div.text-white-dark.pt-5.pb-5 (:pr movement)]]]
+        [:div.text-white-dark.pt-5.pb-5 (helpers/movement-record-value (:pr_type movement) (:pr movement))]]]
       [:div.mb-5]])])

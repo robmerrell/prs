@@ -3,13 +3,13 @@
 select movements.*, value as pr
 from movements
 left join records on (
-	records.id = (
-		select id from records
-		where user_id = :user-id
-		and movement_id = movements.id
-		order by created_at desc
-		limit 1
-	)
+  records.id = (
+    select id from records
+    where user_id = :user-id
+    and movement_id = movements.id
+    order by created_at desc
+    limit 1
+  )
 )
 where category_id = :category-id
 order by name;
