@@ -1,5 +1,6 @@
 (ns prs.views.movements
   (:require [tick.alpha.api :as tick]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
             [prs.views.helpers :as helpers]))
 
 (defn- date-from-timestamp
@@ -42,6 +43,15 @@
           [:div.mb-1.bg-gray.flex.items-stretch.text-white.text-lg.py-2
            [:div.flex-1.text-right.pr-4 (str percent "%")]
            [:div.flex-1.text-left.pl-4.text-white-dark value]])])
+
+     [:div.mb-8
+      [:form {:action (str "/movements/" (:id movement)) :method "post" }
+       (anti-forgery-field)
+       [:div.mb-1.bg-gray.flex.items-stretch.text-lg.py-2
+        [:div.flex-1.text-right.pr-4
+         [:input.p-1 {:type "text" :name "value" :id "value"}]]
+        [:div.flex-1.text-left.pl-4
+         [:input.bg-green.text-white.p-1 {:type "submit" :value "Add New Record"}]]]]]
 
    ;; history
      [:div.text-green.text-2xl "History"]

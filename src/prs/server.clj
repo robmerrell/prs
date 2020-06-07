@@ -23,6 +23,7 @@
   (GET "/categories" [] categories/index)
   (GET "/categories/:id" [] categories/show)
   (GET "/movements/:id" [] movements/show)
+  (POST "/movements/:id" [] movements/create-record)
   (route/resources "/"))
 
 ;; authentication
